@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   resources :git_webhooks, only: [:create]
 
+  get '/status' => "application#status"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
