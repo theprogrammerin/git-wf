@@ -7,7 +7,8 @@ class GitWebhooksController < ApplicationController
       pr_analyzer.analyze_and_comment
     elsif branch_create_event?
       branch = params[:ref]
-      branch_analyzer = BranchNameAnalyzer.new(@repo, branch)
+      user = params[:sender][:login]
+      branch_analyzer = BranchNameAnalyzer.new(@repo, branch, user)
       branch_analyzer.analyze_and_delete
     end
     render json: {

@@ -1,13 +1,17 @@
 class BranchNameAnalyzer
   include GitAuthHelper
 
-  def initialize(repo, branch)
+  def initialize(repo, branch, owner)
     @repo = repo
     @branch = branch
+    @owner = owner
   end
 
   def analyze_and_delete
-    delete! if !valid_name?
+    if !valid_name?
+      delete!
+      notify_user
+    end
   end
 
   def delete!
@@ -15,6 +19,13 @@ class BranchNameAnalyzer
       state: "open"
     }
     RestClient.delete delete_url, headers
+  end
+
+  def notify_user
+    data = {
+      body: "#{get_user} You missed out the naming convention, hence thy branch (#{@branch}) was deleted"
+    }
+    RestClient.post notification_url, data.to_json, headers
   end
 
   private
@@ -32,7 +43,12 @@ class BranchNameAnalyzer
     "https://api.github.com/repos/#{@repo}/git/refs/heads/#{@branch}"
   end
 
+  def notification_url
+    issue_number = Rails.application.config.github.notification_issues["invalid_branch_name"]
+    "https://api.github.com/repos/#{@repo}/issues/#{issue_number}/comments"
+  end
+
   def get_user
-    "@#{@pull_request_data[:user][:login]}"
+    "@#{@owner}"
   end
 end
