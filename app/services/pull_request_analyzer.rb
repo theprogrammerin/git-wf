@@ -1,4 +1,5 @@
 class PullRequestAnalyzer
+  include GitAuthHelper
 
   def initialize(repo, pull_request_number)
     @repo = repo
@@ -88,12 +89,4 @@ class PullRequestAnalyzer
   def comments_url
     "https://api.github.com/repos/#{@repo}/issues/#{@pull_request_number}/comments"
   end
-
-  def headers
-    {
-      content_type: :json,
-      authorization: "token #{Rails.application.config.github.token}"
-    }
-  end
-
 end
