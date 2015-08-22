@@ -8,7 +8,7 @@ class GitWebhooksController < ApplicationController
     elsif branch_create_event?
       branch = params[:ref]
       branch_analyzer = BranchNameAnalyzer.new(@repo, branch)
-      branch.analyze_and_delete
+      branch_analyzer.analyze_and_delete
     end
     render json: {
       status: true,
@@ -25,7 +25,7 @@ class GitWebhooksController < ApplicationController
   end
 
   def branch_create_event?
-    request.headers["X-Github-Event"] == "branch" && params[:ref_type] == "branch"
+    request.headers["X-Github-Event"] == "create" && params[:ref_type] == "branch"
   end
 
 end
