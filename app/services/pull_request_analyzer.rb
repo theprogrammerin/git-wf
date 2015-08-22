@@ -23,8 +23,11 @@ class PullRequestAnalyzer
       close_pr = true
     end
 
-    add_comment(comment) if comment.present?
-    close_pull_request if close_pr
+    if is_pull_request_opened?
+      add_comment(comment) if comment.present?
+      close_pull_request if close_pr
+    end
+
   end
 
   def get_from_git
@@ -70,6 +73,10 @@ class PullRequestAnalyzer
     @pull_request_data[:body].downcase
   end
 
+  def is_pull_request_opened?
+    @pull_request_data[:state] == "open"
+  end
+
   def get_user
     "@#{@pull_request_data[:user][:login]}"
   end
@@ -85,7 +92,7 @@ class PullRequestAnalyzer
   def headers
     {
       content_type: :json,
-      authorization: "token #{Rails.application.config.github_token}"
+      authorization: "token #{Rails.application.config.github.token}"
     }
   end
 

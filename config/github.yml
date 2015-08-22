@@ -1,0 +1,14 @@
+
+development:
+  username: ["theprogrammerin"]
+  token: "c63a1b71826ef48e67541758ef3fb54440d365f9"
+  repos: ["git-fw"]
+  events: ["pull_request"]
+
+
+production:
+  username: ["theprogrammerin"]
+  token: "c63a1b71826ef48e67541758ef3fb54440d365f9"
+  repos: ["git-fw"]
+  events: ["pull_request"]
+
