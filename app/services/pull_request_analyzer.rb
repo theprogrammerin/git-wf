@@ -1,10 +1,8 @@
 class PullRequestAnalyzer
 
-  def initialize(pull_request_number)
+  def initialize(repo, pull_request_number)
+    @repo = repo
     @pull_request_number = pull_request_number
-    @base_pull_url = "https://api.github.com/repos/theprogrammerin/git-wf/pulls/#{@pull_request_number}"
-
-    @base_issue_url = "https://api.github.com/repos/theprogrammerin/git-wf/issues/#{@pull_request_number}"
   end
 
   def analyze_and_comment
@@ -26,6 +24,8 @@ class PullRequestAnalyzer
     if is_pull_request_opened?
       add_comment(comment) if comment.present?
       close_pull_request if close_pr
+    else
+      puts "PR Already Closed"
     end
 
   end
@@ -82,11 +82,11 @@ class PullRequestAnalyzer
   end
 
   def pull_request_url
-    "#{@base_pull_url}"
+    "https://api.github.com/repos/#{@repo}/pulls/#{@pull_request_number}"
   end
 
   def comments_url
-    "#{@base_issue_url}/comments"
+    "https://api.github.com/repos/#{@repo}/issues/#{@pull_request_number}/comments"
   end
 
   def headers

@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :exception
 
   before_filter :check_listners, except: [:status]
+  before_filter :set_repo, except: [:status]
 
   def status
     render json: {
@@ -14,7 +15,6 @@ class ApplicationController < ActionController::Base
   private
 
   def check_listners
-
     event_supported = request.headers["X-Github-Event"].present? &&
       Rails.application.config.github.events.include?(request.headers["X-Github-Event"])
 
@@ -35,7 +35,10 @@ class ApplicationController < ActionController::Base
       }
       return false
     end
+  end
 
+  def set_repo
+    @repo = params[:repository][:full_name]
   end
 
 end
