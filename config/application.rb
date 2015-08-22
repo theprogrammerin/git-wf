@@ -21,6 +21,9 @@ module GitWf
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
+
+    config.log_level = :debug
+
     config.active_record.raise_in_transactional_callbacks = true
 
     config.github = OpenStruct.new YAML.load_file("#{Rails.root.to_s}/config/github.yml")[Rails.env]
