@@ -20,3 +20,5 @@ Gemfile.lock
 db/schema.rb
 log/
 .keep
+
+.env

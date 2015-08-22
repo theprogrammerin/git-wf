@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv.load ".env.#{Rails.env}", '.env'
+
 module GitWf
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -26,7 +28,7 @@ module GitWf
 
     config.active_record.raise_in_transactional_callbacks = true
 
-    config.github = OpenStruct.new YAML.load_file("#{Rails.root.to_s}/config/github.yml")[Rails.env]
+    config.github = OpenStruct.new YAML.load(ERB.new(File.read("#{Rails.root}/config/github.yml")).result)[Rails.env]
 
   end
 end
