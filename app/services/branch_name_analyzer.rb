@@ -44,7 +44,7 @@ class BranchNameAnalyzer
   end
 
   def notification_url
-    issue_number = Rails.application.config.github.notification_issues["invalid_branch_name"]
+    issue_number = NotificationIssueFinder.new(@repo).find_or_create(:wrong_branch_name)
     "https://api.github.com/repos/#{@repo}/issues/#{issue_number}/comments"
   end
 

@@ -32,7 +32,7 @@ class PullRequestAnalyzer
   end
 
   def get_from_git
-    response = RestClient.get pull_request_url
+    response = RestClient.get pull_request_url, headers
     @pull_request_data = JSON.parse(response, symbolize_names: true)
   end
 

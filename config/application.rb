@@ -30,5 +30,7 @@ module GitWf
 
     config.github = OpenStruct.new YAML.load(ERB.new(File.read("#{Rails.root}/config/github.yml")).result)[Rails.env]
 
+    config.notifications = HashWithIndifferentAccess.new YAML.load_file("#{Rails.root}/config/notifications.yml")
+
   end
 end

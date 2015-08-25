@@ -4,8 +4,6 @@ development:
   token: "<%= ENV["GITHUB_TOKEN"] %>"
   repos: ["git-wf"]
   events: ["create", "pull_request"]
-  notification_issues:
-    invalid_branch_name: 5
 
 
 production:
@@ -13,6 +11,4 @@ production:
   token: "<%= ENV["GITHUB_TOKEN"] %>"
   repos: ["git-wf"]
   events: ["create", "pull_request"]
-  notification_issues:
-    invalid_branch_name: 5
 

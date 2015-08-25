@@ -1,0 +1,5 @@
+
+title:
+  wrong_branch_name: "Notifications - Wrong branch name used"
+body:
+  wrong_branch_name: "I will mention all the branches which got deleted because of wrong naming convention here."
