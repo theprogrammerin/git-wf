@@ -8,7 +8,7 @@ class BranchNameAnalyzer
   end
 
   def analyze_and_delete
-    if !valid_name?
+    if !valid_name? and !ignored_branch?
       delete!
       notify_user
     end
@@ -29,6 +29,10 @@ class BranchNameAnalyzer
   end
 
   private
+
+  def ignored_branch?
+    ["develop", "master"].include? @branch
+  end
 
   def valid_name?
     is_hotfix = /hot[_\ ]{0,1}fix\/(\S*)/.match(@branch).present?
