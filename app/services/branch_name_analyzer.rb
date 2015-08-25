@@ -39,8 +39,9 @@ class BranchNameAnalyzer
     is_bugfix = /bug[_\ ]{0,1}fix\/(\S*)/.match(@branch).present?
     is_feature = /feature\/(\S*)/.match(@branch).present?
     is_refactor = /refactor\/(\S*)/.match(@branch).present?
+    is_enhancement = /enhancement\/(\S*)/.match(@branch).present?
 
-    is_hotfix || is_bugfix || is_feature || is_refactor
+    is_hotfix || is_bugfix || is_feature || is_refactor || is_enhancement
   end
 
   def delete_url
